@@ -4,7 +4,8 @@ var myFormConfig =
     type: "custom",
     title: "Mailing Address",
     endpoints: {
-        getEndpoint: "http://services{environment}.aacn.org/customer/api/address/{addressKey}",
+       // getEndpoint: "http://services{environment}.aacn.org/customer/api/address/{addressKey}",
+        getEndpoint: "https://jsonplaceholder.typicode.com/photos",
         postEndpoint: "http://services{environment}.aacn.org/customer/api/{customerKey}/address/{addressKey}",
         putEndpoint: "http://services{environment}.aacn.org/customer/api/{customerKey}/address/{addressKey}",
         deleteEndpoint: "http://service{environment}s.aacn.org/customer/api/address/{addressKey}"
@@ -27,5 +28,7 @@ var myFormConfig =
         { field: "country", type: ["select", ["UNITED STATES", "UNITED KINGDOM"]], label: "Country", placeholder: "country", class: "form-control", validate: [1] }
     ]
 };
+// use new es6 module import
+// module.exports = myFormConfig;  <-- old method of export
 
-module.exports = myFormConfig;
+export default myFormConfig
