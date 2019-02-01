@@ -2,6 +2,7 @@ import React, {  Suspense, Component,lazy  } from 'react';
 import Loaded from '../atoms/messages/loaded';
 
 
+
 const SubForm  = lazy(()=>import('./subform.jsx'))
 
 
@@ -15,11 +16,11 @@ class QuickFields extends Component {
     }
 componentDidMount(){
 
-fetch("https://jsonplaceholder.typicode.com/photos").then(x=>x.json()).then(x=>{this.setState({payload:x[0]})}).then(x=>this.setState(prevState=>({loaded:true})))
+fetch(this.state.endpoints.getEndpoint).then(x=>{console.log(x)}).then(x=>x.json()).then(x=>{this.setState({payload:x[0]})}).then(x=>this.setState(prevState=>({loaded:true})))
 
 }
     render(){
-            console.log(this.state.payload.x)
+            console.log(this.state)
         return(
             <>
             <div>this text is not sub component </div>
