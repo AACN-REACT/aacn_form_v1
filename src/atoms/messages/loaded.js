@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 
 const Loaded = {  
@@ -8,7 +8,7 @@ const Loaded = {
         
         return (
             <div style={{width:"300px",height:"50px",border:"2px solid lightgreen"}}>
-        Data successfully loaded 
+        Data successfully loaded!
         </div>
     )
 },
