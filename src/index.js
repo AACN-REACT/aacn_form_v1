@@ -3,9 +3,10 @@ import ReactDOM from 'react-dom';
 import QuickFields from './molecules/quick_fields.js'
 import './index.css';
 import myFormConfig from './data/Standard/MailingAddress.js';
+import promisePollyfill from './utils/promisePollyfill'
 
 
-
+promisePollyfill()
 const root =  document.getElementById('root')
 
 
