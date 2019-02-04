@@ -1,6 +1,7 @@
 import React from 'react';
 
-const genericStyles= {height:"20px",width:"100px",margin:"10px",fontFamily:"arial",color:"slate",border:"1px solid blue"}
+const genericStyles= {height:"20px",width:"100px",margin:"10px",fontFamily:"arial",color:"slate",border:"1px solid blue"};
+const genericButton = {borderRadius:"5px",height:"30px",width:"50px",margin:"10px",fontFamily:"arial",color:"slate",border:"1px solid blue"};
 
 const FormElements = {
 
@@ -14,8 +15,15 @@ text: function({ name, label,class_of_box="",length=10,validation,value="", hand
     </input>
         </label>
         )
+},
+
+
+button:function(props){
+    return(
+        <button className={props.buttonClass} style={genericButton} type={props.buttonType}>{props.buttonText}</button>
+    )
 }
 
 }
 
-export default genericStyles
+export default FormElements
