@@ -12,7 +12,7 @@ const root =  document.getElementById('root');
 
 
 //ReactDOM.render(<QuickFields config={myFormConfig}/>,root);
-ReactDOM.render(<AACNform  config = {myFormConfig}/>,root);
+ReactDOM.render(<AACNform  />,root);
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: http://bit.ly/CRA-PWA

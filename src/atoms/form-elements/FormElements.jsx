@@ -20,7 +20,7 @@ text: function({ name, label,class_of_box="",length=10,validation,value="", hand
 
 button:function(props){
     return(
-        <button className={props.buttonClass} style={genericButton} type={props.buttonType}>{props.buttonText}</button>
+        <button className={props.buttonClass} onClick={props.handleCLick} style={genericButton} type={props.buttonType}>{props.buttonText}</button>
     )
 }
 
