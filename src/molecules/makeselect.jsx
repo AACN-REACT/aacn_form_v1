@@ -8,34 +8,12 @@ const fields = [
     { name: "state", type: "select", className: "", options: [], hasParent: false, label: "State" },
 ]
 
-
-const countryData = [
-    { code: "CAN", display: "Canada", key: "2222" },
-    { code: "USA", display: "United States", key: "1111" },
-    { code: "UK", display: "United Kingdom", key: "3333" },
-    { code: "RUS", display: "Russia", key: "4444", selected: true }
-];
-
-const stateData = [
-    { code: "MIL", display: "Milwaukae", pk: "United States" },
-    { code: "TEX", display: "Texas", pk: "United States", selected: true },
-    { code: "BERK", display: "berkshire", pk: "United Kingdom" },
-    { code: "PET", display: "st petersburg", pk:"Russia" },
-    { code: "ONT", display: "ontario", pk:"Canada"},
-    { code: "LON", display: "london", pk:"United Kingdom" },
-    { code: "ATL", display: "atlanta", pk: "United States" },
-    { code: "MOS", display: "moscow", pk: "Russia", selected: true },
-    { code: "MON", display: "montreal", pk: "Canada" },
-    { code: "NFL", display: "NewfoundLand", pk: "Canada"},
-    { code: "LVP", display: "Liverpool", pk: "United Kingdom" },
-    { code: "SBR", display: "Siberia", pk:"Russia"},
-    { code: "CA", display: "California", pk: "United States" }
-];
-
-function MakeSelect(selectClass, ...data) {
+function MakeSelect({fields,selectClass, data1, data2}) {
 
 
-    const [index1, changeIndex] = useState("Russia");
+
+console.log(data1)
+    const [index1, changeIndex] = useState("United States");
 
     function cascade(ev) {
         console.log(ev.target.value)
@@ -56,10 +34,12 @@ function MakeSelect(selectClass, ...data) {
         console.log(index1)
         return undefined
     }
+
+    
 return(
         <>
             <select onChange={test} value={index1}>
-                {countryData.map(item => (
+                {data1.map(item => (
                     <option
                         key={Math.random() * Math.random() * 10000}
                         data-num={item.key}
@@ -69,7 +49,7 @@ return(
                 ))}
             </select>
             <select>
-                {stateData
+                {data2
                     .filter(el => el.pk === index1)
                     .map(item => (
                         <option key={Math.random() * Math.random() * 10000} >{item.display}</option>

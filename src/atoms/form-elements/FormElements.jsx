@@ -6,24 +6,14 @@ const genericButton = {borderRadius:"5px",height:"30px",width:"50px",margin:"10p
 const FormElements = {
 
 //input class is  a string, styles is an object, validation is an object,value is a string, handleChange is a function
-text: function({ name, label,class_of_box="",length=10,validation,value="", handleChange,styles=genericStyles,placeholder=""}) {
-
-    return ( 
-
-        <label htmlFor={label && name}> 
-        <input name={name} styles={{...genericStyles,...styles}} className={class_of_box} length={length} required={validation.required} onChange={handleChange} placeholder={placeholder} value={value} >
-    </input>
-        </label>
-        )
-},
+"input": ({label})=><label >{label?label:"no label"}<input type="text" /></label>,
+"password":()=><input type="password"/>,
 
 
-button:function(props){
-    return(
-        <button className={props.buttonClass} onClick={props.handleCLick} style={genericButton} type={props.buttonType}>{props.buttonText}</button>
-    )
-}
+"button":()=> <button className="">A button</button>
+,
 
+"select":()=>  <select><option></option></select>
 }
 
 export default FormElements
