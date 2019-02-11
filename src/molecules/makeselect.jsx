@@ -1,32 +1,21 @@
-import React, { useState, useEffect, Component } from 'react';
-
-
-const fields = [
-
-
-    { name: "country", type: "select", className: "", options: [], hasParent: false, label: "Country" },
-    { name: "state", type: "select", className: "", options: [], hasParent: false, label: "State" },
-]
-
-function MakeSelect({fields,selectClass, data1, data2}) {
+import React, { useState} from 'react';
 
 
 
-console.log(data1)
-    const [index1, changeIndex] = useState("United States");
 
-    function cascade(ev) {
-        console.log(ev.target.value)
-        let group = ev.target.options; 
-        let index = ev.target.selectedIndex;
-        let el = group[index].dataset.num;
-        changeIndex(el);
-        console.log("This should be selected:",index1);
-    }
 
-    function test(ev){
+function MakeSelect({selectGroup,data1, data2}) {
 
-        changeIndex(ev.currentTarget.options[ev.currentTarget.selectedIndex].value)
+
+
+console.log(data1.filter(el=>el.selected?el.selected:data1.indexOf(el)===[0]).display)
+    const [index1, changeIndex] = useState(data1.filter(el=>el.selected)[0])
+console.log("CURRENT VALUE",index1)    
+
+
+    function handleSelectChange(ev){
+
+        changeIndex(data1.filter(item=>item.display===(ev.currentTarget.options[ev.currentTarget.selectedIndex].value))[0])
         console.log(ev.currentTarget.value);
         console.log(ev.currentTarget.options);
         console.log(ev.currentTarget.selectedIndex);
@@ -38,7 +27,7 @@ console.log(data1)
     
 return(
         <>
-            <select onChange={test} value={index1}>
+            <select onChange={handleSelectChange} value={index1.display}>
                 {data1.map(item => (
                     <option
                         key={Math.random() * Math.random() * 10000}
@@ -50,7 +39,7 @@ return(
             </select>
             <select>
                 {data2
-                    .filter(el => el.pk === index1)
+                    .filter(el => el.pk === index1.key)
                     .map(item => (
                         <option key={Math.random() * Math.random() * 10000} >{item.display}</option>
                     ))}
