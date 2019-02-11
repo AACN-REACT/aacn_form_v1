@@ -6,7 +6,9 @@ import MakeSelect  from './molecules/makeselect';
 import FormMaker  from './organisms/formmaker.jsx';
 import FormElements from './atoms/form-elements/FormElements.jsx';
 import './index.css';
+
 import {countryData,stateData} from "./data/freshdata.js";
+
 
 //import myFormConfig from './data/Standard/MailingAddress.js';
 import promisePollyfill from './utils/promisePollyfill';
@@ -34,6 +36,10 @@ const data2 =[{display:"TEX",pk:"111"},
 
 //ReactDOM.render(<QuickFields config={myFormConfig}/>,root);
 //ReactDOM.render(<FormMaker fields={fields} />,root);
+
+//let myrequest = new Client("http://nfdev:9023/index.html");
+//myrequest.then(res=>console.log(res))
+
 ReactDOM.render(<MakeSelect data1={data1} data2={data2}/>,root);
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
