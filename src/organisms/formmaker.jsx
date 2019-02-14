@@ -7,12 +7,12 @@ import guidGenerator from "../utils/guid_generator.js";
 
 
 
-  export default function FormMaker({fields}){
+  export default function FormMaker({fields,dispatch}){
 
 
     console.log(fields)
  
-    function GenerateFields(myfields){
+    function GenerateFields(myfields,dispatch){
            
            return myfields.map((field,id)=> FormElements[field.type](field))
 

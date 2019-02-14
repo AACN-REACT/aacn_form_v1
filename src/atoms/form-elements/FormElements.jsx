@@ -6,11 +6,12 @@ const genericButton = {borderRadius:"5px",height:"30px",width:"50px",margin:"10p
 const FormElements = {
 
 //input class is  a string, styles is an object, validation is an object,value is a string, handleChange is a function
-"input": ({label})=><label >{label?label:"no label"}<input type="text" /></label>,
-"password":()=><input type="password"/>,
+"text": ({label,name,classes,length,required=true,dispatch})=><label >{label?label:"no label"}<input  maxlength={length} name={name} 
+class={classes} required={required}/></label>,
+"password":({label,name,length,classes,required=true})=><label >{label?label:"no label"}<input maxlength={length} type="password" name={name} class={classes} required={required}/></label>,
 
 
-"button":()=> <button className="">A button</button>
+"button":({label,name,classes,length,required=true})=> <button className="">{label}</button>
 ,
 
 "select":()=>  <select><option></option></select>

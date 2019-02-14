@@ -1,7 +1,8 @@
-import React, { Suspense, lazy, Component } from "react";
+import React, { useReducer, useEffect, useRef, useContext, Suspense, lazy, Component } from "react";
 import FormElements from "../atoms/form-elements/FormElements.jsx";
 import countries from "../data/Lookup/countryData.js";
 import states from "../data/Lookup/stateData.js";
+import newConfig from "../data/newconfig.js";
 import promisePollyfill from "../utils/promisePollyfill";
 import guidGenerator from "../utils/guid_generator.js";
 // import countryData from '../data/Lookup/countryData';
@@ -40,162 +41,89 @@ const stateData = [
   { code: "SBR", display: "Siberia", pk: "4444" },
   { code: "CA", display: "California", pk: "1111" }
 ];
-const test = {
-  title: "My Form",
-  endpoints: {
-    getEndpoint: "",
-    deleteEndpoint: "",
-    postEndpoint: "",
-    putEndpoint: ""
-  },
-  fields: [
-    { name: "name", type: "password", value: "" },
-    { name: "country", type: "select", options: countryData, value: "" },
-    {
-      name: "state",
-      type: "select",
-      options: stateData,
-      value: "",
-      parent: "country"
-    },
-    { name: "state", type: "select", options: stateData }
-  ],
-  key: "123435"
-};
 
-const test2 = {
-  title: "My Form",
-  endpoints: {
-    getEndpoint: "",
-    deleteEndpoint: "",
-    postEndpoint: "",
-    putEndpoint: ""
-  },
-  fields: {
-    name: { label: "Name", type: "password", prop: "", pos: 1 },
-    country: {
-      label: "Country",
-      type: "select",
-      options: countryData,
-      prop: "",
-      pos: 2
-    },
-    state: {
-      label: "State/region",
-      type: "select",
-      options: stateData,
-      parent: "country",
-      prop: "",
-      pos: 3
-    },
-    Number: {
-      label: "Number",
-      type: "select",
-      options: [
-        { display: "1", prop: 1 },
-        { display: "2", prop: 2 },
-        { display: "3", prop: 3 }
-      ],
-      prop: "",
-      pos: 4
-    }
-  },
-  key: "123435"
-};
 
 promisePollyfill();
 
-export default class AACNform extends Component {
-  constructor(props) {
-    super(props);
-    this.state = this.generatingState(test2);
-    this.handleChange = this.handleChange.bind(this);
+
+
+
+
+//define the function used to extract State from the config
+
+function extractStatefromConfig(config) {
+  let formInitialState = {};
+  config.fields.forEach((fel,i)=>{
+    formInitialState[fel.field] = fel.value
+  })
+  return formInitialState
+  
+}
+// generate fields from config object
+function FormMaker({fields}){
+
+  console.log(fields)
+
+  function GenerateFields(myfields){
+         console.log(FormElements)
+         return myfields.map((field,id)=>FormElements[field.type](field))
+
   }
 
-  handleChange(event) {
-    event.persist();
-    console.log("This event target props", event);
-    event.preventDefault();
-    this.setState(prevState => ({
-      fields: {
-        ...prevState.fields,
-        [event.target.name]: {
-          ...prevState.fields[event.target.name],
-          prop: [event.target.value]
-        }
-      }
-    }));
-  }
 
-  //function that takes filed object and generates the input fields
+return (
 
-  generatingState(config) {
-    this.state = { ...config };
-    console.log(this.state);
-  }
-  generateMarkUp(fields) {
-    const fieldset = [];
-    for (let key in fields) {
-      console.log(fields[key]);
-      fieldset.push(
-        fields[key].type == "select" ? (
-          <label pos={fields[key].pos}>
-            {fields[key].label}
+<div>
+{GenerateFields(fields)}
+</div>)
+}
 
-            <select
-              onChange={this.handleChange}
-              name={key}
-              style={{ width: "200px", color: "black" }}
-            >
-              {fields[key].options
-                .map(el => <option value={el}>{el.display}</option>)
-                .filter(e =>
-                  fields[key].options.parent
-                    ? fields[key].options.parent.value.key === e.pk
-                    : e
-                )}
-            </select>
-          </label>
-        ) : (
-          <label pos={fields[key].pos}>
-            {fields[key].label}
-            <input
-              onChange={this.handleChange}
-              name={key}
-              type={fields[key]}
-              value={fields[key].prop}
-            />
-          </label>
-        )
-      );
-    }
+// reducer used to change state in response to dispatch 
 
-    let sortedArr = fieldset.sort((a, b) => a.props.pos - b.props.pos);
-    console.log("SORTED ARR:", sortedArr);
-    return sortedArr;
-  }
+function formreducer(state, action) {
+  return {...state,...action.payload}
+}
 
-  componentDidMount() {
-    let myGui = guidGenerator();
-    this.setState(prevState => ({ ...prevState, id: myGui }));
-  }
 
-  handleSubmit = ev => {
-    console.log("clicked");
-    ev.preventDefault();
-    console.log("submitted");
-    console.log(ev.target);
-    fetch(this.state.endpoints.postEndpoint);
-  };
+// actioncreator function used by dispatcher
+function actionChangeState(value, stateField, state){
+  
+  return {...state, stateField:value}
+}
 
-  render() {
-    console.log("RENDERED FIELDS:", this.state.fields);
-    return (
-      <>
-        {this.generateMarkUp(this.state.fields)}
+// use this actioncreator if other won't generate correct keyname
+function actionChangeState2(value, field, state){
+  
+  return {...state, [Object.keys(state).filter(el=>el===field)[0]]:value}
+}
 
-        {/*<pre>{JSON.stringify(countryData,0,2)}</pre>*/}
-      </>
-    );
-  }
+
+//______________________________New Form With Reducers_________________________________________________//
+//_____________________________________________________________________________________________________//
+
+export default function AACNform({config}){
+  
+  //_________________________CREATE STATE FROM CONFIG_______________________________//
+  // Use useReducer hook to set up state, formreducer is defined in another file.
+  const [state, dispatch] = useReducer(formreducer, extractStatefromConfig(config));
+  
+ 
+  //extract endpoints and form title from config
+  const {endpoints,title,classes} =config
+
+
+//_________________________GENERATE MARKUP FROM CONFIG______________________________//
+
+
+return    (
+
+  <form action={endpoints.post} method="post" class={classes}  >
+  <div>{title}</div>
+   <FormMaker fields={config.fields} dispatch={dispatch} state={state} />
+   <pre>{JSON.stringify(state,0,2)}</pre>
+  
+  </form>
+
+)
+
 }
