@@ -16,5 +16,8 @@ code {
 .myselect {width:300px; border:2px solid green}
 
 .myform{
-  border:1opx solid red
+  border:10px solid red;display:flex;flex-direction: column
 }
+
+.myform div{display:flex;flex-direction: column}
+.form-title{font-size: 2rem}

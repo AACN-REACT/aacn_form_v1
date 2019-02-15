@@ -117,8 +117,8 @@ export default function AACNform({config}){
 
 return    (
 
-  <form action={endpoints.post} method="post" class={classes}  >
-  <div>{title}</div>
+  <form action={endpoints.post} method="post" className={classes}  >
+  <div className="form-title">{title}</div>
    <FormMaker fields={config.fields} dispatch={dispatch} state={state} />
    <pre>{JSON.stringify(state,0,2)}</pre>
   

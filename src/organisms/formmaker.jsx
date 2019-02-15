@@ -14,7 +14,7 @@ import guidGenerator from "../utils/guid_generator.js";
  
     function GenerateFields(myfields,dispatch){
            
-           return myfields.map((field,id)=> FormElements[field.type](field))
+           return myfields.map((field,id)=> FormElements[field.type]({...field,dispatch:dispatch}))
 
     }
 
