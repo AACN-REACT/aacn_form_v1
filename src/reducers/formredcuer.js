@@ -11,5 +11,5 @@
 //     }
 
 export function formreducer(state, action) {
-      return {...state,...action.payload}
+      return action.payload
     }

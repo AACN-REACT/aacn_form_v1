@@ -79,7 +79,7 @@ function extractStatefromConfig(config) {
 }
 
 
-// generate fields from config object
+// generate fields from config object //
 function FormMaker({fields}){
 
   console.log(fields)
@@ -139,15 +139,10 @@ export default function AACNform({config}){
 
 return    (
 
-<<<<<<< HEAD
-  <form action={endpoints.post} method="post" className={classes}  >
-  <div className="form-title">{title}</div>
-=======
   <StateContext.Provider value={state}> 
     <DispatchContext.Provider value={dispatch}>
-  <form action={endpoints.post} method="post" class={classes}  >
-  <div>{title}</div>
->>>>>>> b817b4b83456e03818fe48c54e61f21479e68156
+  <form action={endpoints.post} method="post" className={classes || "form-control-lg"}  >
+  <div>{title.text}</div>
    <FormMaker fields={config.fields} dispatch={dispatch} state={state} />
    <pre>{JSON.stringify(state,0,2)}</pre>
   

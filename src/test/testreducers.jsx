@@ -7,7 +7,7 @@ const myaction = function(text) {
 const mystate={name:"empty",
                address: "empty",
                 age: 0}
-const myreducer = function(action){
+const myreducer = function(state,action){
     return action.payload
 }
 const Mycontext = createContext()
@@ -16,6 +16,7 @@ function LowestLevel() {
 const dispatch = useContext(Mycontext)
     return (
         <input type="text" onChange={(ev)=>dispatch(myaction(ev.target.value))} />
+     
     )
 }
 
@@ -33,8 +34,8 @@ function TopLevel() {
 
     return (
     <Mycontext.Provider value={state} >
-    <Mycontext.Provider value={context} >
-        <div>
+    <Mycontext.Provider value={dispatch} >
+        <div><h1>{state.name}</h1>
             <InnerLevel />
         </div>
     </Mycontext.Provider  >

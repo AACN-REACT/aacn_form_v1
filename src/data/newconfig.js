@@ -1,5 +1,6 @@
 const newConfig = {
-    title: "My Simple Form",
+    title:{text:"My Simple ", classes:["form-control"]},
+    classes:"form-control-lg",
     endpoints: {},
     fields: [
       {
@@ -10,7 +11,7 @@ const newConfig = {
         length: 20,
         handler: undefined,
         classes: "",
-        styling: {},
+        styling: {border:"10px solid pink"},
         validation: "",
         value: "Tony"
       },
@@ -103,7 +104,7 @@ const newConfig = {
         validation: "",
         value: ""
       },
-      { field: "submit", type: "button", handler: (ev)=>{ev.preventDefault(); }, label: "SUMBIT" }
+      { field: "submit", type: "button", handler: (ev)=>{ev.preventDefault(); }, label: "SUMBIT", classes:"", styling:{width:"100px"} }
     ],
     classes:"myform"
   };

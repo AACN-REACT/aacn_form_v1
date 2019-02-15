@@ -36,8 +36,8 @@ const select2 = {type:"select",name:"State", options:options2,  classes:"myselec
   
 //function MakeSelect({fields,selectClass, data1, data2})
 
-ReactDOM.render(<TopLevel />, root);
-// ReactDOM.render(<AACNform config={newConfig} />,root);
+// ReactDOM.render(<TopLevel />, root);
+ ReactDOM.render(<AACNform config={newConfig} />,root);
 
 //let myrequest = new Client("http://nfdev:9023/index.html");
 //myrequest.then(res=>console.log(res))
