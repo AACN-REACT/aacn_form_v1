@@ -12,11 +12,11 @@ const newConfig = {
         classes: "",
         styling: {},
         validation: "",
-        value: ""
+        value: "Tony"
       },
   
       {
-        field: "lastname",
+        field: "surname",
         type: "password",
         label: "Password",
         placeholder: "your last name",
@@ -31,23 +31,24 @@ const newConfig = {
       {
         field: "country",
         type: "select",
-        parent: "false",
         child: "state",
         options: [
           {
             name: "USA",
             key: "222",
-            selected: true,
+            
             value: "USA"
           },
           {
             name: "UK",
             key: "333",
-            value: "USA"
+
+            value: "UK"
           },
           {
             name: "CANADA",
             key: "444",
+            selected: true,
             value: "CAN"
           }
         ],
@@ -74,14 +75,23 @@ const newConfig = {
           {
             name: "London",
             Parentkey: "333",
+            selected:true,
             key: "002",
             value: "LON"
           },
           {
             name: "Ontario",
             Parentkey: "444",
+            selected:true,
             key: "003",
             value: "ONT"
+          },
+          {
+            name: "Montreal",
+            Parentkey: "444",
+
+            key: "003",
+            value: "MONT"
           }
         ],
         label: "State or Province",
@@ -93,7 +103,7 @@ const newConfig = {
         validation: "",
         value: ""
       },
-      { field: "submit", type: "button", handler: undefined, label: "SUMBIT" }
+      { field: "submit", type: "button", handler: (ev)=>{ev.preventDefault(); }, label: "SUMBIT" }
     ],
     classes:"myform"
   };
