@@ -5,6 +5,7 @@ import states from "../data/Lookup/stateData.js";
 import newConfig from "../data/newconfig.js";
 import promisePollyfill from "../utils/promisePollyfill";
 import guidGenerator from "../utils/guid_generator.js";
+import {StateContext, DispatchContext} from '../contexts/contexts.js';
 // import countryData from '../data/Lookup/countryData';
 // import stateData from '../data/Lookup/stateData';
 
@@ -46,7 +47,16 @@ const stateData = [
 promisePollyfill();
 
 
+function extract(config){
+  const myfields = config.fields;
+let formInitialState = {};
+for(let i=0;i<myfields.length;i++){
 
+
+}
+
+
+}
 
 
 //define the function used to extract State from the config
@@ -54,11 +64,21 @@ promisePollyfill();
 function extractStatefromConfig(config) {
   let formInitialState = {};
   config.fields.forEach((fel,i)=>{
-    formInitialState[fel.field] = fel.value
-  })
+    console.log("looping over..", fel)
+    formInitialState[fel.field]=fel.options? 
+    fel.parent?fel.options.filter((item,i)=>Object.keys(item).indexOf('selected')>=0).length>0 ? // so we check if there is a selected option
+    fel.options.filter(item=>item.Parentkey===formInitialState[fel.parent].key).filter((item,i)=>Object.keys(item).indexOf('selected')>=0)[0]:
+    fel.options.filter(item=>item.Parentkey===formInitialState[fel.parent].key)[0]:      
+    fel.options.filter((item,i)=>Object.keys(item).indexOf('selected')>=0).length>0?
+    fel.options.filter((item,i)=>Object.keys(item).indexOf('selected')>=0)[0]:fel.options
+        
+        :fel.value})
+  console.log("Looping state after loop..",formInitialState)    
   return formInitialState
   
 }
+
+
 // generate fields from config object
 function FormMaker({fields}){
 
@@ -74,6 +94,7 @@ function FormMaker({fields}){
 return (
 
 <div>
+  
 {GenerateFields(fields)}
 </div>)
 }
@@ -88,7 +109,7 @@ function formreducer(state, action) {
 // actioncreator function used by dispatcher
 function actionChangeState(value, stateField, state){
   
-  return {...state, stateField:value}
+  return {...state, [stateField]:value}
 }
 
 // use this actioncreator if other won't generate correct keyname
@@ -97,8 +118,9 @@ function actionChangeState2(value, field, state){
   return {...state, [Object.keys(state).filter(el=>el===field)[0]]:value}
 }
 
+//_____________________________________________________________________________________________________//
 
-//______________________________New Form With Reducers_________________________________________________//
+//______________________________NEW FORM WITH REDUCERS_________________________________________________//
 //_____________________________________________________________________________________________________//
 
 export default function AACNform({config}){
@@ -117,6 +139,8 @@ export default function AACNform({config}){
 
 return    (
 
+  <StateContext.Provider value={state}> 
+    <DispatchContext.Provider value={dispatch}>
   <form action={endpoints.post} method="post" class={classes}  >
   <div>{title}</div>
    <FormMaker fields={config.fields} dispatch={dispatch} state={state} />
@@ -124,6 +148,8 @@ return    (
   
   </form>
 
+    </DispatchContext.Provider>
+  </StateContext.Provider>
 )
 
 }
