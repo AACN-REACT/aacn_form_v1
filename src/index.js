@@ -8,7 +8,7 @@ import FormElements from './atoms/form-elements/FormElements.jsx';
 import './index.css';
 import newConfig from "./data/newconfig.js";
 import {countryData,stateData} from "./data/freshdata.js";
-import 
+import TopLevel from './test/testreducers'
 
 //import myFormConfig from './data/Standard/MailingAddress.js';
 import promisePollyfill from './utils/promisePollyfill';
@@ -36,8 +36,8 @@ const select2 = {type:"select",name:"State", options:options2,  classes:"myselec
   
 //function MakeSelect({fields,selectClass, data1, data2})
 
-//ReactDOM.render(<QuickFields config={myFormConfig}/>,root);
-ReactDOM.render(<AACNform config={newConfig} />,root);
+ReactDOM.render(<TopLevel />, root);
+// ReactDOM.render(<AACNform config={newConfig} />,root);
 
 //let myrequest = new Client("http://nfdev:9023/index.html");
 //myrequest.then(res=>console.log(res))
