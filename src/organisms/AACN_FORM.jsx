@@ -6,6 +6,7 @@ import newConfig from "../data/newconfig.js";
 import promisePollyfill from "../utils/promisePollyfill";
 import guidGenerator from "../utils/guid_generator.js";
 import {StateContext, DispatchContext} from '../contexts/contexts.js';
+import '../index.css';
 // import countryData from '../data/Lookup/countryData';
 // import stateData from '../data/Lookup/stateData';
 
@@ -130,7 +131,8 @@ export default function AACNform({config}){
   
  
   //extract endpoints and form title from config
-  const {endpoints,title,classes} =config
+  const {endpoints,title,classes} =config;
+  console.log(title)
 
 
 //_________________________GENERATE MARKUP FROM CONFIG______________________________//
@@ -140,9 +142,11 @@ return    (
 
   <StateContext.Provider value={state}> 
     <DispatchContext.Provider value={dispatch}>
-  <form action={endpoints.post} method="post" className={classes || "form-control-lg"}  >
-  <div>{title.text}</div>
+  <form action={endpoints.post} method="post" className={classes.length>0?classes:"form"}  >
+  <div id="form-control" class>
+  <div className={title.classes.join(" ")}>{title.text}</div>
    <FormMaker fields={config.fields} dispatch={dispatch} state={state} />
+   </div>
    <pre>{JSON.stringify(state,0,2)}</pre>
   
   </form>

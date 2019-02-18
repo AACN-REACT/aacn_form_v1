@@ -48,7 +48,7 @@ const FormElements = {
     
     const state = useContext(StateContext)
     const dispatch = useContext(DispatchContext)
-    return (<label style={field.styling}  className={field.classes} key={id}>{field.label?field.label:"My label"}<input name={field.name} value={state[this.name]} onChange={ev=>dispatch({payload:{[field.thisfield]:ev.target.value}})}/></label>) 
+    return (<label style={field.styling}  className={field.classes} key={id}>{field.label?field.label:"My label"}<input placeholder={field.thisfield.placeholder}  name={field.name} value={state[this.name]} onChange={ev=>dispatch({payload:{[field.thisfield]:ev.target.value}})}/></label>) 
 
 },
 
@@ -58,13 +58,35 @@ const FormElements = {
     const state = useContext(StateContext)
     const dispatch = useContext(DispatchContext)
     return(
-        <label style={field.styling} className={field.classes} key={id}>{field.label?field.label:"My label"}><input name={field.thisfield} onChange={ev=>dispatch({payload:{[field.thisfield]:ev.target.value}})} type="password" /></label>
+        <label style={field.styling} className={field.classes} key={id}>{field.label?field.label:"My label"}><input placeholder={field.thisfield.placeholder} name={field.thisfield} onChange={ev=>dispatch({payload:{[field.thisfield]:ev.target.value}})} type="password" /></label>
     )
 
 },
 
-"button":function (field,id) { 
-    return field.thisfield==="submit"?<input style={field.styling} className={field.classes} type="submit" />:field.thisfield==="reset"?<button style={field.styling} className={field.classes} >Reset</button>:<button style={field.styling} className={field.classes} >{field.label}</button>
+"button":function (field,id,fields) { 
+console.log("BUTTON HAS STYLING:", field.classes)
+const state = useContext(StateContext)
+const dispatch = useContext(DispatchContext)
+    switch(field.thisfield){
+
+        case "submit":
+    
+    return <input onClick={(ev)=>{ev.preventDefault(); fetch(fields.endpoints.post, {method:"post", body:state}) } }style={field.styling} value={field.label} className={field.classes.length>0?field.classes:"btn"} type="submit" />
+
+        case "reset":
+
+ 
+       return  <button  style={field.styling} className={field.classes.length>0?field.classes:"btn"} >Reset</button>;
+
+    case "generic":
+
+    return <button style={field.styling}  className={field.classes.length>0?field.classes:"btn"} >{field.label}</button>;
+
+    default :
+
+    return <input style={field.styling} className={field.classes} type="submit" />
+
+}
 }
 ,
 
@@ -85,6 +107,25 @@ const FormElements = {
         </select>
         </label>
     )
-}
+},
+
+"radio": function (field,id,fields) { 
+    const state = useContext(StateContext)
+    const dispatch = useContext(DispatchContext)
+    let con = "country"
+    console.log("STATE>FIELD>FIELD", fields)
+    let fieldToChange = extractValues(field,"thisfield")
+    console.log("FIELD TO CHANGE:",fieldToChange)
+    return(
+        <label  className={field.classes} style={field.styling}   key={id}>{field.label?field.label:"My label"} 
+        <radio name={field.thisfield} onChange={ev=>{
+            dispatch({payload:{[fieldToChange]:[field.options.filter(item=>item.name===ev.target.value)][0][0]}}); changeChild(fields, field,state,ev);
+        }
+            } value={this.selectedIndex}>
+        {field.options.filter(item=>item.Parentkey?item.Parentkey===state[field.parent].key:item).map(fitem=><option selected={fitem.selected?true:false}>{fitem.name}</option>)}
+        </radio>
+        </label>
+    )
+},
 }
 export default FormElements

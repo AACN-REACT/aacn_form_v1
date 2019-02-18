@@ -1,5 +1,5 @@
 const newConfig = {
-    title:{text:"My Simple ", classes:["form-control"]},
+    title:{text:"My Simple ", classes:["form-title"]},
     classes:"form-control-lg",
     endpoints: {},
     fields: [
@@ -110,8 +110,9 @@ const newConfig = {
             value: "MONT"
           },
           
+          
         ],
-        label: "State or Province",
+        label: "color",
         placeholder: "",
         length: 20,
         handler: undefined,
@@ -120,8 +121,9 @@ const newConfig = {
         validation: "",
         value: ""
       },
+     
     
-      { thisfield: "submit", type: "button", handler: (ev)=>{ev.preventDefault(); }, label: "SUMBIT", classes:"", styling:{width:"100px"} }
+      { thisfield: "submit", type: "button", handler: (ev)=>{ev.preventDefault(); }, label: "SUMBIT", classes:[], styling:{width:"100px"} }
     ],
     classes:"myform"
   };

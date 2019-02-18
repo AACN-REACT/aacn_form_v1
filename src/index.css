@@ -20,4 +20,6 @@ code {
 }
 
 .myform div{display:flex;flex-direction: column}
-.form-title{font-size: 2rem}
+.form-title{font-size: 3rem}
+
+.myButton{ background:paleturquoise;color:darkblue; border-radius:10px;boxder:1px solid blue}
