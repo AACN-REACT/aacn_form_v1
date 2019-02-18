@@ -29,12 +29,12 @@ if(field.children){
     //      filter(item=>item.selected?item.selected:item)[0]
     //  }
 function(item,idx){
-    state[item] = (fields.filter(item=>item.thisfield ===field.children[0])[0]).options.
-    filter(item=>item.Parentkey===myval).
-    filter(item=>item.selected===true)[0]
-}
- )
-}
+
+    state[item] =  (fields.filter(item=>item.thisfield ===field.children[idx])[0]).options.
+    filter(item=>item.Parentkey===myval)[0];
+}   )
+} 
+
 else {
     return null
 }
@@ -58,7 +58,7 @@ const FormElements = {
     const state = useContext(StateContext)
     const dispatch = useContext(DispatchContext)
     return(
-        <label style={field.styling} className={field.classes} key={id}>{field.label?field.label:"My label"}><input placeholder={field.thisfield.placeholder} name={field.thisfield} onChange={ev=>dispatch({payload:{[field.thisfield]:ev.target.value}})} type="password" /></label>
+        <label style={field.styling} className={field.classes} key={id}>{field.label?field.label:"My label"}<input placeholder={field.thisfield.placeholder} name={field.thisfield} onChange={ev=>dispatch({payload:{[field.thisfield]:ev.target.value}})} type="password" /></label>
     )
 
 },
@@ -99,11 +99,13 @@ const dispatch = useContext(DispatchContext)
     console.log("FIELD TO CHANGE:",fieldToChange)
     return(
         <label  className={field.classes} style={field.styling}   key={id}>{field.label?field.label:"My label"} 
-        <select name={field.thisfield} onChange={ev=>{
-            dispatch({payload:{[fieldToChange]:[field.options.filter(item=>item.name===ev.target.value)][0][0]}}); changeChild(fields, field,state,ev);
+        <select defname={field.thisfield} onChange={ev=>{
+                                                        console.log("from inside chnageHandler", ev.target.selectedIndex)
+                                                        dispatch({payload:{[fieldToChange]:field.options.filter(item=>item.name===ev.target.value)[0]}}); 
+                                                        changeChild(fields, field,state,ev);
         }
-            } value={this.selectedIndex}>
-        {field.options.filter(item=>item.Parentkey?item.Parentkey===state[field.parent].key:item).map(fitem=><option selected={fitem.selected?true:false}>{fitem.name}</option>)}
+            }  >
+        {field.options.filter(item=>item.Parentkey?item.Parentkey===state[field.parent].key:item).map(fitem=><option >{fitem.name}</option>)}
         </select>
         </label>
     )

@@ -93,8 +93,7 @@ function FormMaker({fields}){
 
 return (
 
-<div>
-  
+<div> 
 {GenerateFields(fields)}
 </div>)
 }

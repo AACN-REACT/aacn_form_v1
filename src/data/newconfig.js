@@ -1,5 +1,5 @@
 const newConfig = {
-    title:{text:"My Simple ", classes:["form-title"]},
+    title:{text:"My Simple Form ", classes:["form-title"]},
     classes:"form-control-lg",
     endpoints: {},
     fields: [
@@ -11,7 +11,7 @@ const newConfig = {
         length: 20,
         handler: undefined,
         classes: "",
-        styling: {border:"10px solid pink"},
+        styling: {border:"5px solid green"},
         validation: "",
         value: "Tony"
       },
@@ -31,12 +31,12 @@ const newConfig = {
   
       {
         thisfield: "country",
-        type: "select",
+        type: "select", 
         children: ["state"],
         options: [
           {
             name: "USA",
-            selected: true,
+            selected: true, 
             key: "222",
 
             value: "USA"
@@ -112,7 +112,7 @@ const newConfig = {
           
           
         ],
-        label: "color",
+        label: "State",
         placeholder: "",
         length: 20,
         handler: undefined,
@@ -123,7 +123,7 @@ const newConfig = {
       },
      
     
-      { thisfield: "submit", type: "button", handler: (ev)=>{ev.preventDefault(); }, label: "SUMBIT", classes:[], styling:{width:"100px"} }
+      { thisfield: "submit", type: "button", label: "SUMBIT", classes:[], styling:{width:"300px"} }
     ],
     classes:"myform"
   };
