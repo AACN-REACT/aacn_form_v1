@@ -25,7 +25,7 @@ const FormElements = {
     
     const state = useContext(StateContext)
     const dispatch = useContext(DispatchContext)
-    return (<label style={field.styling}  className={field.classes} key={id}>{field.label?field.label:"My label"}<input name={field.name} value={state[this.name]} onChange={ev=>dispatch({payload:{[field.field]:ev.target.value}})}/></label>) 
+    return (<label style={field.styling}  className={field.classes} key={id}>{field.label?field.label:"My label"}<input name={field.name} value={state[this.name]} onChange={ev=>dispatch({payload:{[field.thisfield]:ev.target.value}})}/></label>) 
 
 },
 
@@ -35,26 +35,26 @@ const FormElements = {
     const state = useContext(StateContext)
     const dispatch = useContext(DispatchContext)
     return(
-        <label style={field.styling} className={field.classes} key={id}>{field.label?field.label:"My label"}><input name={field.field} onChange={ev=>dispatch({payload:{[field.field]:ev.target.value}})} type="password" /></label>
+        <label style={field.styling} className={field.classes} key={id}>{field.label?field.label:"My label"}><input name={field.thisfield} onChange={ev=>dispatch({payload:{[field.thisfield]:ev.target.value}})} type="password" /></label>
     )
 
 },
 
 "button":function (field,id) { 
-    return field.field==="submit"?<input style={field.styling} className={field.classes} type="submit" />:field.field==="reset"?<button style={field.styling} className={field.classes} >Reset</button>:<button style={field.styling} className={field.classes} >{field.label}</button>
+    return field.thisfield==="submit"?<input style={field.styling} className={field.classes} type="submit" />:field.thisfield==="reset"?<button style={field.styling} className={field.classes} >Reset</button>:<button style={field.styling} className={field.classes} >{field.label}</button>
 }
 ,
 
-"select": function (field,id) { 
+"select": function (field,id,fields) { 
     const state = useContext(StateContext)
     const dispatch = useContext(DispatchContext)
     let con = "country"
-    console.log("STATE>FIELD>FIELD", field)
+    console.log("STATE>FIELD>FIELD", fields)
 
     
     return(
         <label  className={field.classes} style={field.styling}   key={id}>{field.label?field.label:"My label"} 
-        <select name={field.field} onChange={ev=>dispatch({payload:{[state[field.field]]:{...state[field.field].filter(item=>item.value===ev.target.value)[0] }}} )} value={state[this.name]}>
+        <select name={field.thisfield} onChange={ev=>dispatch({payload:{[state[field.thisfield]]: [fields.filter(item=>item.thisfield.field===ev.target.value)][0]} })} value={state[field.thisfield]}>
         {field.options.filter(item=>item.Parentkey?item.Parentkey===state[field.parent].key:item).map(fitem=><option>{fitem.name}</option>)}
         </select>
         </label>

@@ -64,10 +64,10 @@ for(let i=0;i<myfields.length;i++){
 function extractStatefromConfig(config) {
   let formInitialState = {};
   config.fields.forEach((fel,i)=>{
-    console.log("looping over..", fel)
-    formInitialState[fel.field]=fel.options? 
-    fel.parent?fel.options.filter((item,i)=>Object.keys(item).indexOf('selected')>=0).length>0 ? // so we check if there is a selected option
-    fel.options.filter(item=>item.Parentkey===formInitialState[fel.parent].key).filter((item,i)=>Object.keys(item).indexOf('selected')>=0)[0]:
+    formInitialState[fel.thisfield]=fel.options? 
+        fel.parent?
+          fel.options.filter((item,i)=>Object.keys(item).indexOf('selected')>=0).length>0 ? // so we check if there is a selected option
+                fel.options.filter(item=>item.Parentkey===formInitialState[fel.parent].key).filter((item,i)=>Object.keys(item).indexOf('selected')>=0)[0]:
     fel.options.filter(item=>item.Parentkey===formInitialState[fel.parent].key)[0]:      
     fel.options.filter((item,i)=>Object.keys(item).indexOf('selected')>=0).length>0?
     fel.options.filter((item,i)=>Object.keys(item).indexOf('selected')>=0)[0]:fel.options
@@ -85,8 +85,7 @@ function FormMaker({fields}){
   console.log(fields)
 
   function GenerateFields(myfields){
-         console.log(FormElements)
-         return myfields.map((field,id)=>FormElements[field.type](field))
+         return myfields.map((field,id)=>FormElements[field.type](field,id,myfields))
 
   }
 

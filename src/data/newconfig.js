@@ -4,7 +4,7 @@ const newConfig = {
     endpoints: {},
     fields: [
       {
-        field: "name",
+        thisfield: "name",
         type: "text",
         label: "Name",
         placeholder: "your first name",
@@ -17,7 +17,7 @@ const newConfig = {
       },
   
       {
-        field: "surname",
+        thisfield: "surname",
         type: "password",
         label: "Password",
         placeholder: "your last name",
@@ -30,26 +30,26 @@ const newConfig = {
       },
   
       {
-        field: "country",
+        thisfield: "country",
         type: "select",
         child: "state",
         options: [
           {
             name: "USA",
             key: "222",
-            
+
             value: "USA"
           },
           {
             name: "UK",
             key: "333",
-
+            selected: true,
             value: "UK"
           },
           {
             name: "CANADA",
             key: "444",
-            selected: true,
+
             value: "CAN"
           }
         ],
@@ -63,15 +63,26 @@ const newConfig = {
         value: ""
       },
       {
-        field: "state",
+        thisfield: "state",
         type: "select",
         parent: "country",
         options: [
+         { name: "Manchester",
+          Parentkey: "333",
+          key: "005",
+          value: "MAN"
+        },
           {
             name: "California",
             Parentkey: "222",
             key: "001",
             value: "CA"
+          },
+          {
+            name: "Texas",
+            Parentkey: "222",
+            key: "004",
+            value: "TEX"
           },
           {
             name: "London",
@@ -104,7 +115,7 @@ const newConfig = {
         validation: "",
         value: ""
       },
-      { field: "submit", type: "button", handler: (ev)=>{ev.preventDefault(); }, label: "SUMBIT", classes:"", styling:{width:"100px"} }
+      { thisfield: "submit", type: "button", handler: (ev)=>{ev.preventDefault(); }, label: "SUMBIT", classes:"", styling:{width:"100px"} }
     ],
     classes:"myform"
   };

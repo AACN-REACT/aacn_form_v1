@@ -5,24 +5,20 @@ import promisePollyfill from "../utils/promisePollyfill";
 import guidGenerator from "../utils/guid_generator.js";
 
 
+function GenerateFields(fields){
+  
+  return fields.map((field,id)=> FormElements[field.type](field,id,fields)) }
+
+  export default function FormMaker(fields){
 
 
-  export default function FormMaker({fields,dispatch}){
-
-
-    console.log(fields)
- 
-    function GenerateFields(myfields,dispatch){
-           
-           return myfields.map((field,id)=> field.type!="select"||"radio"||"dependent"?FormElements[field.type](field,id):FormElements[field.type](field,id))
-
-    }
+    console.log("thessseees",fields)
 
 
 
 return (
 
 <div>
-{GenerateFields(fields)}
+   {JSON.stringify(fields,0,2)} {/*} {GenerateFields(fields)}  */}
 </div>)
   }
