@@ -112,18 +112,11 @@ const dispatch = useContext(DispatchContext)
 "radio": function (field,id,fields) { 
     const state = useContext(StateContext)
     const dispatch = useContext(DispatchContext)
-    let con = "country"
-    console.log("STATE>FIELD>FIELD", fields)
     let fieldToChange = extractValues(field,"thisfield")
     console.log("FIELD TO CHANGE:",fieldToChange)
     return(
         <label  className={field.classes} style={field.styling}   key={id}>{field.label?field.label:"My label"} 
-        <radio name={field.thisfield} onChange={ev=>{
-            dispatch({payload:{[fieldToChange]:[field.options.filter(item=>item.name===ev.target.value)][0][0]}}); changeChild(fields, field,state,ev);
-        }
-            } value={this.selectedIndex}>
-        {field.options.filter(item=>item.Parentkey?item.Parentkey===state[field.parent].key:item).map(fitem=><option selected={fitem.selected?true:false}>{fitem.name}</option>)}
-        </radio>
+            {field.options}
         </label>
     )
 },
