@@ -32,10 +32,11 @@ const newConfig = {
       {
         thisfield: "country",
         type: "select",
-        child: "state",
+        children: ["state"],
         options: [
           {
             name: "USA",
+            selected: true,
             key: "222",
 
             value: "USA"
@@ -43,7 +44,7 @@ const newConfig = {
           {
             name: "UK",
             key: "333",
-            selected: true,
+
             value: "UK"
           },
           {
@@ -62,6 +63,7 @@ const newConfig = {
         validation: "",
         value: ""
       },
+      
       {
         thisfield: "state",
         type: "select",
@@ -69,12 +71,14 @@ const newConfig = {
         options: [
          { name: "Manchester",
           Parentkey: "333",
+          selected:true,
           key: "005",
           value: "MAN"
         },
           {
             name: "California",
             Parentkey: "222",
+            selected:true,
             key: "001",
             value: "CA"
           },
@@ -87,7 +91,7 @@ const newConfig = {
           {
             name: "London",
             Parentkey: "333",
-            selected:true,
+
             key: "002",
             value: "LON"
           },
@@ -104,7 +108,8 @@ const newConfig = {
 
             key: "003",
             value: "MONT"
-          }
+          },
+          
         ],
         label: "State or Province",
         placeholder: "",
@@ -115,6 +120,7 @@ const newConfig = {
         validation: "",
         value: ""
       },
+    
       { thisfield: "submit", type: "button", handler: (ev)=>{ev.preventDefault(); }, label: "SUMBIT", classes:"", styling:{width:"100px"} }
     ],
     classes:"myform"

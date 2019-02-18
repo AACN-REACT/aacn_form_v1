@@ -64,9 +64,9 @@ for(let i=0;i<myfields.length;i++){
 function extractStatefromConfig(config) {
   let formInitialState = {};
   config.fields.forEach((fel,i)=>{
-    formInitialState[fel.thisfield]=fel.options? 
-        fel.parent?
-          fel.options.filter((item,i)=>Object.keys(item).indexOf('selected')>=0).length>0 ? // so we check if there is a selected option
+    formInitialState[fel.thisfield]=fel.options? // is this a select type field
+        fel.parent? //check if field has a parent
+          fel.options.filter((item,i)=>Object.keys(item).indexOf('selected')>=0).length>0 ? // check if there is a selected option
                 fel.options.filter(item=>item.Parentkey===formInitialState[fel.parent].key).filter((item,i)=>Object.keys(item).indexOf('selected')>=0)[0]:
     fel.options.filter(item=>item.Parentkey===formInitialState[fel.parent].key)[0]:      
     fel.options.filter((item,i)=>Object.keys(item).indexOf('selected')>=0).length>0?
@@ -82,7 +82,7 @@ function extractStatefromConfig(config) {
 // generate fields from config object //
 function FormMaker({fields}){
 
-  console.log(fields)
+  console.log("These is passed down to Formfields:" ,fields)
 
   function GenerateFields(myfields){
          return myfields.map((field,id)=>FormElements[field.type](field,id,myfields))

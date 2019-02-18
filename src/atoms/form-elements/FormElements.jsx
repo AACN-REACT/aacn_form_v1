@@ -13,9 +13,32 @@ const genericButton = {borderRadius:"5px",height:"30px",width:"50px",margin:"10p
 //    fel.options.filter((item,i)=>Object.keys(item).indexOf('selected')>=0)
 //   }
 
+//field = individual field, id = id of field, fields = whole fields
+function extractValues(obj,key){
+    return obj[key]
+}
 
-
-
+function changeChild(fields,field,state,ev){
+    console.log("FIELD CHILDREN",field.options.filter(item=>item.value===ev.target.value)[0]);
+    let myval = field.options.filter(item=>item.name===ev.target.value)[0].key
+if(field.children){
+ field.children.forEach(
+    //  function(item,idx){
+    //      state[item] = (fields.filter(item=>item.thisfield ===field.children[0])[0]).options.
+    //      filter(item=>item.Parentkey===myval.key).
+    //      filter(item=>item.selected?item.selected:item)[0]
+    //  }
+function(item,idx){
+    state[item] = (fields.filter(item=>item.thisfield ===field.children[0])[0]).options.
+    filter(item=>item.Parentkey===myval).
+    filter(item=>item.selected===true)[0]
+}
+ )
+}
+else {
+    return null
+}
+}
 
 const FormElements = {
 
@@ -50,12 +73,15 @@ const FormElements = {
     const dispatch = useContext(DispatchContext)
     let con = "country"
     console.log("STATE>FIELD>FIELD", fields)
-
-    
+    let fieldToChange = extractValues(field,"thisfield")
+    console.log("FIELD TO CHANGE:",fieldToChange)
     return(
         <label  className={field.classes} style={field.styling}   key={id}>{field.label?field.label:"My label"} 
-        <select name={field.thisfield} onChange={ev=>dispatch({payload:{[state[field.thisfield]]: [fields.filter(item=>item.thisfield.field===ev.target.value)][0]} })} value={state[field.thisfield]}>
-        {field.options.filter(item=>item.Parentkey?item.Parentkey===state[field.parent].key:item).map(fitem=><option>{fitem.name}</option>)}
+        <select name={field.thisfield} onChange={ev=>{
+            dispatch({payload:{[fieldToChange]:[field.options.filter(item=>item.name===ev.target.value)][0][0]}}); changeChild(fields, field,state,ev);
+        }
+            } value={this.selectedIndex}>
+        {field.options.filter(item=>item.Parentkey?item.Parentkey===state[field.parent].key:item).map(fitem=><option selected={fitem.selected?true:false}>{fitem.name}</option>)}
         </select>
         </label>
     )
