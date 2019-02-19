@@ -68,6 +68,7 @@ const newConfig = {
         thisfield: "state",
         type: "select",
         parent: "country",
+        disappear:false,
         children: ["bands"],
         options: [
             { name: "Manchester",
@@ -187,6 +188,47 @@ const newConfig = {
           
         ],
         label: "bands",
+        placeholder: "",
+        length: 20,
+        handler: undefined,
+        classes: "",
+        styling: {},
+        validation: "",
+        value: ""
+      },
+      {
+        thisfield: "flowers",
+        type: "radio",
+        options: [
+            { name: "roses",
+              selected:true,
+              key: "005",
+              value: "ROSE"
+            },
+            { name: "DAFFODILS",
+            key: "006",
+            value: "DAF"
+          },
+          { name: "Cure",
+          selected:true,
+          key: "005",
+          value: "Cure"
+        },          
+          {
+            name: "Beachboys",
+            selected:true,
+            key: "001",
+            value: "CA"
+          },
+          {
+            name: "Slipknot",
+            key: "004",
+            value: "TEX"
+          }
+          
+          
+        ],
+        label: "more bands",
         placeholder: "",
         length: 20,
         handler: undefined,

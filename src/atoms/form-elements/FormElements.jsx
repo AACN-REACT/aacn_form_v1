@@ -18,26 +18,20 @@ function extractValues(obj,key){
     return obj[key]
 }
 
-function changeChild(fields,field,state,ev){
-    console.log("FIELD CHILDREN",field.options.filter(item=>item.value===ev.target.value)[0]);
-    let myval = field.options.filter(item=>item.name===ev.target.value)[0].key
-if(field.children){
- field.children.forEach(
-    //  function(item,idx){
-    //      state[item] = (fields.filter(item=>item.thisfield ===field.children[0])[0]).options.
-    //      filter(item=>item.Parentkey===myval.key).
-    //      filter(item=>item.selected?item.selected:item)[0]
-    //  }
-function(item,idx){
+function changeChild(fields, field, state, ev) {
+    let myval = field.options.filter(item => item.name === ev.target.value)[0].key;
+    if (field.children) {
+        field.children.forEach(
+            function (item, idx) {
+                if (item === undefined) { return null }
+                state[item] = (fields.filter(item => item.thisfield === field.children[idx])[0]).options.
+                    filter(item => item.Parentkey === myval)[0];
+            })
+    }
 
-    state[item] =  (fields.filter(item=>item.thisfield ===field.children[idx])[0]).options.
-    filter(item=>item.Parentkey===myval)[0];
-}   )
-} 
-
-else {
-    return null
-}
+    else {
+        return null
+    }
 }
 
 const FormElements = {
@@ -99,7 +93,7 @@ const dispatch = useContext(DispatchContext)
     console.log("FIELD TO CHANGE:",fieldToChange)
     return(
         <label  className={field.classes} style={field.styling}   key={id}>{field.label?field.label:"My label"} 
-        <select value={state[field.thisfield].name} onChange={ev=>{
+        <select value={state[field.thisfield]?state[field.thisfield].name:null} onChange={ev=>{
                                                         console.log("from inside chnageHandler", ev.target.selectedIndex)
                                                         dispatch({payload:{[fieldToChange]:field.options.filter(item=>item.name===ev.target.value)[0]}}); 
                                                         changeChild(fields, field,state,ev);
@@ -117,10 +111,11 @@ const dispatch = useContext(DispatchContext)
     let fieldToChange = extractValues(field,"thisfield")
     console.log("FIELD TO CHANGE:",fieldToChange)
     return(
-        <label  className={field.classes} style={field.styling}   key={id}>{field.label?field.label:"My label"} 
-            {field.options}
+        <label  className={field.classes} style={field.styling}   key={id}>{field.label?field.label:"My label"} <div>
+            {field.options.filter(item=>item.Parentkey?item.Parentkey===state[field.parent].key:item===item).map(fitem=><><input type="radio" /><span>{fitem.name}</span><br/></>)}
+       </div>
         </label>
     )
-},
+}
 }
 export default FormElements

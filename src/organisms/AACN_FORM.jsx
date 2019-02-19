@@ -65,15 +65,30 @@ for(let i=0;i<myfields.length;i++){
 function extractStatefromConfig(config) {
   let formInitialState = {};
   config.fields.forEach((fel,i)=>{
-    formInitialState[fel.thisfield]=fel.options? // is this a select type field
-        fel.parent? //check if field has a parent
+    formInitialState[fel.thisfield]= (function(fieldtocheck){ 
+      switch (fel.type){
+      case "select":
+        return fel.parent? //check if field has a parent
           fel.options.filter((item,i)=>Object.keys(item).indexOf('selected')>=0).length>0 ? // check if there is a selected option
                 fel.options.filter(item=>item.Parentkey===formInitialState[fel.parent].key).filter((item,i)=>Object.keys(item).indexOf('selected')>=0)[0]:
-    fel.options.filter(item=>item.Parentkey===formInitialState[fel.parent].key)[0]:      
-    fel.options.filter((item,i)=>Object.keys(item).indexOf('selected')>=0).length>0?
-    fel.options.filter((item,i)=>Object.keys(item).indexOf('selected')>=0)[0]:fel.options
-        
-        :fel.value})
+                fel.options.filter(item=>item.Parentkey===formInitialState[fel.parent].key)[0]:      
+                fel.options.filter((item,i)=>Object.keys(item).indexOf('selected')>=0).length>0?
+                fel.options.filter((item,i)=>Object.keys(item).indexOf('selected')>=0)[0]:fel.options[0];
+     case "text":
+     case "textbox":
+      return  fel.value;
+
+     case "radio":
+     return 
+
+      default :
+      return fel.value
+      
+      
+    }}(fel))
+    
+  })
+      
   console.log("Looping state after loop..",formInitialState)    
   return formInitialState
   
