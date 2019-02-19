@@ -98,14 +98,14 @@ const newConfig = {
           {
             name: "Ontario",
             Parentkey: "444",
-            selected:true,
+
             key: "003",
             value: "ONT"
           },
           {
             name: "Montreal",
             Parentkey: "444",
-
+            selected:true,
             key: "003",
             value: "MONT"
           },
