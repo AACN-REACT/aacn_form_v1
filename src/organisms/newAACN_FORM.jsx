@@ -6,7 +6,7 @@ import guidGenerator from "../utils/guid_generator.js";
 import {StateContext, DispatchContext} from '../contexts/contexts.js';
 
 
-const fields = [
+const payload = [
     { thisfield: "name", type:"select",
      children:["city"], 
      options:[{name:"one",value:1, selected:true,key:"001"},
@@ -14,7 +14,7 @@ const fields = [
               {name:"two",value:2, key:"003",}]
     },
     { thisfield: "city", type:"select",
-    parent:"name", 
+    parent:"name",
     options:[{name:"manchester",value:"man", selected:true, parentkey:"001"},
              {name:"liverpool",value:"lvp", parentkey:"002"},
              {name:"birmingham",value:"bgm", selected:true,parentkey:"002"},
@@ -31,12 +31,12 @@ const fields = [
 //rename an object to a selected field
 
 
-function extractState({fields}){
+function createIntialState({fields}){
 
- let newstate = {};
-   fields.forEach(item=>item.type===("select" || "radio" || "dependent")? //  1. check if the item is     a one with options
-                                                        item.parentKey?   //2. Check if the item has a parent
-                                                        fields[item.parentKey] 
+ let initalstate = {};
+   fields.forEach(item=>item.type===("select" || "radio" || "dependent")? //  1. check if the field is a type with options
+                                                        item.parent?   //2. Check if the field has a parent
+                                                        fields[item.parent].
 )
    return newstate
 

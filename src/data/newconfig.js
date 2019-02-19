@@ -68,13 +68,19 @@ const newConfig = {
         thisfield: "state",
         type: "select",
         parent: "country",
+        children: ["bands"],
         options: [
-         { name: "Manchester",
-          Parentkey: "333",
-          selected:true,
-          key: "005",
-          value: "MAN"
-        },
+            { name: "Manchester",
+              Parentkey: "333",
+              selected:true,
+              key: "005",
+              value: "MAN"
+            },
+            { name: "Liverpool",
+            Parentkey: "333",
+            key: "006",
+            value: "LVP"
+          },
           {
             name: "California",
             Parentkey: "222",
@@ -99,7 +105,7 @@ const newConfig = {
             name: "Ontario",
             Parentkey: "444",
 
-            key: "003",
+            key: "007",
             value: "ONT"
           },
           {
@@ -113,6 +119,74 @@ const newConfig = {
           
         ],
         label: "State",
+        placeholder: "",
+        length: 20,
+        handler: undefined,
+        classes: "",
+        styling: {},
+        validation: "",
+        value: ""
+      },
+      {
+        thisfield: "bands",
+        type: "select",
+        parent: "state",
+        options: [
+            { name: "Smiths",
+              Parentkey: "005",
+              selected:true,
+              key: "005",
+              value: "MAN"
+            },
+            { name: "Beatles",
+            Parentkey: "006",
+            key: "006",
+            value: "LVP"
+          },
+          { name: "Cure",
+          Parentkey: "005",
+          selected:true,
+          key: "005",
+          value: "Cure"
+        },          
+          {
+            name: "Beachboys",
+            Parentkey: "001",
+            selected:true,
+            key: "001",
+            value: "CA"
+          },
+          {
+            name: "Slipknot",
+            Parentkey: "004",
+            key: "004",
+            value: "TEX"
+          },
+          {
+            name: "RollingStones",
+            Parentkey: "002",
+
+            key: "002",
+            value: "LON"
+          },
+          {
+            name: "national",
+            Parentkey: "003",
+
+            key: "003",
+            value: "ONT"
+          },
+          {
+            name: "They Might be Giants",
+            Parentkey: "003",
+            selected:true,
+            key: "003",
+            value: "MONT"
+          },
+          
+          
+        ],
+        label: "bands",
         placeholder: "",
         length: 20,
         handler: undefined,

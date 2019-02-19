@@ -99,7 +99,7 @@ const dispatch = useContext(DispatchContext)
     console.log("FIELD TO CHANGE:",fieldToChange)
     return(
         <label  className={field.classes} style={field.styling}   key={id}>{field.label?field.label:"My label"} 
-        <select defaultValue={state[field.thisfield].name} onChange={ev=>{
+        <select value={state[field.thisfield].name} onChange={ev=>{
                                                         console.log("from inside chnageHandler", ev.target.selectedIndex)
                                                         dispatch({payload:{[fieldToChange]:field.options.filter(item=>item.name===ev.target.value)[0]}}); 
                                                         changeChild(fields, field,state,ev);
