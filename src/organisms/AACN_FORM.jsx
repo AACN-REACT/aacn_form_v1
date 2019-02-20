@@ -79,8 +79,22 @@ function extractStatefromConfig(config) {
       return  fel.value;
 
      case "radio":
+     return fel.parent? //check if field has a parent
+     fel.options.filter((item,i)=>Object.keys(item).indexOf('selected')>=0).length>0 ? // check if there is a selected option
+           fel.options.filter(item=>item.Parentkey===formInitialState[fel.parent].key).filter((item,i)=>Object.keys(item).indexOf('selected')>=0)[0]:
+           fel.options.filter(item=>item.Parentkey===formInitialState[fel.parent].key)[0]:      
+           fel.options.filter((item,i)=>Object.keys(item).indexOf('selected')>=0).length>0?
+           fel.options.filter((item,i)=>Object.keys(item).indexOf('selected')>=0)[0]:fel.options[0];
+
+     case "autofill":
+     return
+
+     case "datepicker":
      return 
 
+     case "simpledate":
+
+     return
       default :
       return fel.value
       
